@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Infografik - Florian Pawlow</title>
+  <meta name="description" content="Infografik - Florian Pawlow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(fallzahlenChart);
+
+    function fallzahlenChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Monat', 'Berlin', 'New York City'],
+        ['Jan', 0, 0],
+        ['Feb', 0, 0],
+        ['Mär', 2895, 68151],
+        ['Apr', 5940, 310973],
+        ['Mai', 6816, 390073],
+        ['Jun', 8243, 418010],
+        ['Jul', 9274, 444098],
+        ['Aug', 11266, 466292],
+        ['Sep', 14788, 493332],
+        ['Okt', 32231, 544275],
+        ['Nov', 65145, 686446],
+        ['Dez', 97841, 1015573],
+      ]);
+
+      /*  Quellen: 
+            https://de.statista.com/statistik/daten/studie/1106110/umfrage/entwicklung-der-fallzahl-des-coronavirus-in-berlin/#professional
+            https://www.worldometers.info/coronavirus/usa/new-york/
+      */
+
+      var options = {
+        legend: {
+          position: 'bottom',
+          alignment: 'center',
+        },
+        height: 500,
+        colors: ['#E33525', '#003884'],
+        lineWidth: 4,
+        vAxis: {
+          title: 'Fallzahlen gesamt',
+          baselineColor: 212121,
+          maxValue: 1100000,
+          gridlines: {
+            color: 'transparent'
+          },
+        },
+        chartArea: {
+          height: '80%',
+        },
+        hAxis: {
+          baselineColor: 212121,
+        },
+        animation: {
+          startup: true,
+          duration: 1000,
+          easing: 'out'
+        },
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('fallzahlenChart'));
+
+      chart.draw(data, options);
+
+      var hideBerlin = document.getElementById("hideBerlin");
+      hideBerlin.onclick = function () {
+        view = new google.visualization.DataView(data);
+        view.hideColumns([1]);
+        var options = {
+          legend: {
+            position: 'bottom'
+          },
+          height: 500,
+          colors: ['#003884'],
+          lineWidth: 4,
+          vAxis: {
+            title: 'Fallzahlen gesamt',
+            baselineColor: 212121,
+            maxValue: 1100000,
+            gridlines: {
+              color: 'transparent'
+            },
+          },
+          chartArea: {
+            height: '80%',
+          },
+          hAxis: {
+            baselineColor: 212121,
+          },
+          animation: {
+            startup: true,
+            duration: 1000,
+            easing: 'out'
+          },
+        }
+        chart.draw(view, options);
+      }
+      var hideNYC = document.getElementById("hideNYC");
+      hideNYC.onclick = function () {
+        view = new google.visualization.DataView(data);
+        view.hideColumns([2]);
+        var options = {
+          legend: {
+            position: 'bottom'
+          },
+          height: 500,
+          colors: ['#E33525'],
+          lineWidth: 4,
+          vAxis: {
+            title: 'Fallzahlen gesamt',
+            baselineColor: 212121,
+            maxValue: 1100000,
+            gridlines: {
+              color: 'transparent'
+            },
+          },
+          chartArea: {
+            height: '80%',
+          },
+          hAxis: {
+            baselineColor: 212121,
+          },
+          animation: {
+            startup: true,
+            duration: 1000,
+            easing: 'out'
+          },
+        }
+        chart.draw(view, options);
+      }
+      var showBoth = document.getElementById("showBoth");
+      showBoth.onclick = function () {
+        view = new google.visualization.DataView(data);
+        chart.draw(data, options);
+      }
+    }
+  </script>
+  <script>
+    google.charts.load('current', {
+      packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(genderGraph);
+
+    function genderGraph() {
+      var data = google.visualization.arrayToDataTable([
+        ['City', 'Männer', 'Frauen', 'Gesamt'],
+        ['New York City', 4112539, 4510159, 8622698],
+        ['Berlin', 1804374, 1865218, 3669491],
+      ]);
+
+      //Quelle: https://de.statista.com/statistik/daten/studie/657646/umfrage/einwohnerzahl-in-berlin-nach-geschlecht/#:~:text=Ende%20des%20Jahres%202019%20lag,den%20letzten%20Jahren%20konstant%20an.
+      //        https://www.baruch.cuny.edu/nycdata/population-geography/age_distribution.htm
+      var materialOptions = {
+        colors: ['#E33525', '#003884', '#99a2af'],
+        hAxis: {
+          minValue: 0,
+        },
+        bars: 'horizontal'
+      };
+      var materialChart = new google.charts.Bar(document.getElementById('gender-graph'));
+      materialChart.draw(data, materialOptions);
+    }
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <script>
+    var map1, map2;
+
+    function drawMap() {
+
+      var mapOptions = {
+        zoom: 11,
+        backgroundColor: 'hsla(0, 0%, 0%, 0)',
+        disableDefaultUI: true,
+        zoomControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false,
+        draggable: false,
+        scrollwheel: false,
+        disableDoubleClickZoom: true,
+
+        styles: [{
+          "featureType": "all",
+          "elementType": "all",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }]
+      };
+
+      mapOptions.center = new google.maps.LatLng(52.520008, 13.404954); // Berlin
+      map1 = new google.maps.Map(document.getElementById("map--berlin"), mapOptions);
+      map1.data.loadGeoJson(
+        "https://opendata.arcgis.com/datasets/9f5d82911d4545c4be1da8cab89f21ae_0.geojson"
+      );
+
+      // Quelle https://de.statista.com/statistik/daten/studie/1109841/umfrage/einwohnerzahl-bezirke-berlin/
+
+      map1.data.setStyle(function (feature) {
+        var bezirk = feature.getProperty('FID');
+        var color = "#E33525";
+        if (bezirk == "1") {
+          color = "#dc6b5b";
+        }
+        if (bezirk == "2") {
+          color = "#c63022";
+        }
+        if (bezirk == "3") {
+          color = "#c84f40";
+        }
+        if (bezirk == "4") {
+          color = "#E33525";
+        }
+        if (bezirk == "5") {
+          color = "#bd2f23";
+        }
+        if (bezirk == "6") {
+          color = "#b53429";
+        }
+        if (bezirk == "7") {
+          color = "#d25d4e";
+        }
+        if (bezirk == "8") {
+          color = "#ec8270";
+        }
+        if (bezirk == "9") {
+          color = "#b62e22";
+        }
+        if (bezirk == "10") {
+          color = "#d73324";
+        }
+        if (bezirk == "11") {
+          color = "#bf4135";
+        }
+        if (bezirk == "12") {
+          color = "#cf3223";
+        }
+
+        return {
+          fillColor: color,
+          strokeWeight: 1,
+          fillOpacity: 1,
+        }
+      });
+
+      const legendeberlin = document.getElementById("legende--berlin");
+      map1.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legendeberlin);
+
+      map1.data.addListener('mouseover', function (event) {
+        document.getElementById('legende--berlin').innerHTML =
+          "<h3 class=\"legende__headline\">" + event.feature.getProperty('Gemeinde_n') + "</h3>";
+      });
+
+      map1.data.addListener('mouseover', function (event) {
+        map1.data.revertStyle();
+        map1.data.overrideStyle(event.feature, {
+          strokeWeight: 3
+        });
+      });
+
+      map1.data.addListener('mouseout', function (event) {
+        map1.data.revertStyle();
+      });
+
+
+
+      mapOptions.center = new google.maps.LatLng(40.730610, -73.935242); // New York
+      map2 = new google.maps.Map(document.getElementById("map--nyc"), mapOptions);
+      map2.data.loadGeoJson(
+        "https://data.cityofnewyork.us/resource/7t3b-ywvw.geojson"
+      );
+
+      // Quelle https://data.cityofnewyork.us/City-Government/New-York-City-Population-by-Borough-1950-2040/xywu-7bv9/data/
+
+      map2.data.setStyle(function (feature) {
+        var borough = feature.getProperty('boro_code');
+        var color = "#003884";
+        if (borough == "1") {
+          color = "#4870a7";
+        }
+        if (borough == "2") {
+          color = "#6c8cb8";
+        }
+        if (borough == "3") {
+          color = "#163984";
+        }
+        if (borough == "4") {
+          color = "#2e5c9a";
+        }
+        if (borough == "5") {
+          color = "#8da5c8";
+        }
+        return {
+          fillColor: color,
+          strokeWeight: 1,
+          fillOpacity: 1,
+        }
+      });
+
+      const legendenyc = document.getElementById("legende--nyc");
+      map2.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legendenyc);
+
+      map2.data.addListener('mouseover', function (event) {
+        document.getElementById('legende--nyc').innerHTML =
+          "<h3 class=\"legende__headline\">" + event.feature.getProperty('boro_name') + "</h3>";
+      });
+
+      map2.data.addListener('mouseover', function (event) {
+        map2.data.revertStyle();
+        map2.data.overrideStyle(event.feature, {
+          strokeWeight: 3
+        });
+      });
+
+      map2.data.addListener('mouseout', function (event) {
+        map2.data.revertStyle();
+      });
+    }
+  </script>
+
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/corona.png" alt="Corona">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+          aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Infografik</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="konzept.html">Konzept</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="quellen.html">Quellen</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="row">
+        <div class="col-12 hero__img">
+          <h1>Vergleich Corona Zahlen<br> Berlin & New York City</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <!--  Einleitung  -->
+    <section>
+      <div class="einleitung section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>Einleitung</h2>
+              <p class="einleitung__text">
+                Diese Seite wurde von Florian Pawlow als Projekt der MMBBS angelegt. Die Aufgabenstellung lautete eine
+                Website zu erstellen die mindestens 3 interaktive Graphen, mittels Javascript oder per Javascript
+                Bibliotheken erstellt, beinhaltet und so über ein Thema einen globalen Pandemie informiert. In diesem
+                Fall geht es um den Vergleich des Corona Pandemie Verlaufs der beiden Städte Berlin und New York City.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  Fallzahlen Vergleich  -->
+    <section>
+      <div class="fallzahlen section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>Fallzahlen 2020 im Vergleich</h2>
+              <div class="linien-graph" id="fallzahlenChart"></div>
+              <div class="fallzahlen__buttons">
+                <button type="button" class="btn btn--nyc" id="hideBerlin">New York</button>
+                <button type="button" class="btn btn--berlin" id="hideNYC">Berlin</button>
+                <button type="button" class="btn btn--both" id="showBoth">Beide</button>
+              </div>
+              <p class="fallzahlen__text">
+                Wie man dem Graphen Verlauf entnehmen kann, ist die Gesamtzahl der Infizierten in New York City im Jahre
+                2020 wesentlich höher als in Berlin gewesen. In beiden Städten fange die Zahlen erst im März an, das
+                liegt vermutlich aber an der Tatsache, dass zu der Zeit erst angefangen wurde Tests zu machen. Zudem
+                fällt auf dass in New York City im März fast so viele Infizierte waren, wie in Berlin im gesamten Jahr!
+                Am Ende des Jahres erreicht die Zahl der Infizierten in New York City sogar etwas mehr als 10 mal so
+                viel wie in Berlin. Woran liegt das?
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  Gender Vergleich  -->
+    <section>
+      <div class="gender section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>Gesamtzahl Bevölkerung</h2>
+              <div class="bar-graph" id="gender-graph"></div>
+              <p class="fallzahlen__text">
+                Vergleichen wir zuerst die Gesamtanzahl der Einwohner der beiden Städte, aufgeteilt in die jeweiligen
+                Geschlechter. Wir sehen als erstes natürlich den direkte Vergleich der beiden Gesamtzahlen. New York
+                City hat mehr als doppelt so viele Einwohner als Berlin. Die Anteile an Männern und Frauen scheinen
+                dabei aber keine Rolle zu spielen. Die Verteilung ist in beiden Städten verhältnismäßig gleich. In
+                beiden Städten sind etwas mehr Frauen als Männer vertreten.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  Berlin Map    -->
+    <section>
+      <div class="berlin section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>Berlin - Bevölkerung in Bezirken</h2>
+              <div id="map--berlin"></div>
+              <div id="legende--berlin">
+                <h3 class="legende__headline">Bezirk</h3>
+              </div>
+              <img src="assets/legende--berlin.svg" class="legende__legende" alt="Legende Berlin">
+              <p class="berlin__text">
+                Berlin ist mit einer Gesamtfläche von 891,8 km² in 12 Bezirke unterteilt. Diese verteilen sich recht
+                gleichmäßig von der Fläche, nur Friedrichshain-Kreuzberg und Treptow-Köpenick fallen aus dem Bild, wobei
+                Friedrichshain-Kreuzberg recht klein und Treptow-Köpenick recht groß im Vergleich zu den restlichen
+                Bezirken ist. Die Bevölkerungs Verteilung ist dabei recht leicht zu beschreiben. Von links sind
+                vergleichsweise recht wenig Einwohner pro Bezirk, über die Mitte, wo die drei am stärksten bewohnten
+                Bezirke (Pankow, Tempelhof-Schöneberg und Mitte) sind, bis zu der rechten Seite Berlins, wo sich das
+                Mittelfeld der Bevölkerungsdichte pro Bezirk befindet.
+                <img src="assets/berlin.svg" class="map-icon" alt="Wappen Berlin">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  NYC Map    -->
+    <section>
+      <div class="nyc section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>New York City Bevölkerung in Bezirken</h2>
+              <div id="map--nyc"></div>
+              <div id="legende--nyc">
+                <h3 class="legende__headline">Bezirk</h3>
+              </div>
+              <img src="assets/legende--nyc.svg" class="legende__legende" alt="Legende NYC">
+              <p class="nyc__text">
+                New York City ist “nur” mit einer Fläche von 783,8 km² Flächen mäßig kleiner als Berlin und wird in nur
+                5 Bezirke geteilt. Dementsprechend ist die Bevölkerungsdichte pro Bezirk natürlich wesentlich höher,
+                allerdings muss man zusätzlich bedenken dass in New York auch noch doppelt so viele Menschen wie in
+                Berlin leben. Der am Stärksten bewohnte Bezirk ist Brooklyn, mit 2,330,295. Am wenigsten Einwohner hat
+                Staten Island, mit vergleichsweise lächerlichen 487,155. Doch selbst das ist noch 80,000 Einwohner mehr
+                als Berlins am stärksten bewohnter Bezirk Pankow, mit 409,335.
+                <img src="assets/new_york.svg" class="map-icon" alt="Wappen New York">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  Fazit   -->
+    <section>
+      <div class="fazit section-margin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2>Fazit</h2>
+              <p>
+                Was kann man also daraus schließen? Dass die Zahlen der Covid-19 Infizierten in New York City also so
+                stark und rasant gestiegen sind ist also kein Wunder. Auf weniger Gesamtfläche, wohnen in New York City
+                mehr als doppelt so viele Menschen. Die Ansteckungsgefahr steigt also rasant an und auch das “Social
+                Distancing” macht der nicht vorhande Raum natürlich schwer. Die Bevölkerungsdichte in New York müsste
+                also deutlich sinken um einen leichteren Pandemie Verlauf für zukünftige oder auch wieder neu
+                auftretende Pandemien zu gewährleisten.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="footer__wrapper">
+              <div class="footer__left">
+                <p class="copyright">© Florian Pawlow</p>
+              </div>
+              <div class="footer__right">
+                <a href="#" class="footer__icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4 0C1.79086 0 0 1.79086 0 4V28C0 30.2091 1.79086 32 4 32H28C30.2091 32 32 30.2091 32 28V4C32 1.79086 30.2091 0 28 0H4ZM17.0607 10.9393C16.4749 10.3536 15.5251 10.3536 14.9393 10.9393L6.43934 19.4393C5.85355 20.0251 5.85355 20.9749 6.43934 21.5607C7.02513 22.1464 7.97487 22.1464 8.56066 21.5607L16 14.1213L23.4393 21.5607C24.0251 22.1464 24.9749 22.1464 25.5607 21.5607C26.1464 20.9749 26.1464 20.0251 25.5607 19.4393L17.0607 10.9393Z"
+                      fill="white" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDLvnTXpUBwtYJRgx1bY1apEI6LrlZYRA&callback=drawMap">
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+@font-face {
+    font-family: Roboto;
+    src: local("assets/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: RobotoSemibold;
+    src: local("assets/Roboto-Medium.ttf");
+}
+
+body {
+    color: #001737;
+}
+
+.navbar {
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+    margin-left: 48px;
+    font-family: 'RobotoSemibold', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #001737 !important;
+}
+
+.hero .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.hero__img {
+    height: calc(100vh - 87px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('assets/hero-img.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    font-family: 'RobotoSemibold', sans-serif;
+    font-weight: 600;
+    font-size: 42px;
+    line-height: 51px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+h2 {
+    font-family: 'RobotoSemibold', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 150%;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #001737;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.section-margin {
+    margin-top: 148px !important;
+}
+
+.einleitung {
+    text-align: center;
+}
+
+.einleitung__text {
+    max-width: 60%;
+    margin: 24px auto 0px auto;
+}
+
+.fallzahlen {
+    max-width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.fallzahlen__text {
+    max-width: 90%;
+    margin: 48px auto 0px auto;
+}
+
+.fallzahlen__buttons {
+    margin: 24px auto 0px auto;
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    padding: 12px;
+    margin: 12px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.btn--nyc {
+    background: #003884;
+}
+
+.btn--berlin {
+    background-color: #E33525;
+}
+
+.btn--both {
+    background-color: rgba(0, 23, 55, 0.4);
+}
+
+.gender {
+    max-width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.bar-graph {
+    margin: 48px auto 0px auto;
+    width: 100%;
+    min-height: 450px;
+}
+
+#map--berlin {
+    height: 680px;
+}
+
+#map--nyc {
+    height: 680px;
+}
+
+#legende--nyc,
+#legende--berlin {
+    background-color: #fff;
+    border: 1px solid #E4E7EB;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+    color: #001737;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.legende__legende {
+    max-width: 70%;
+}
+
+.legende__headline {
+    font-size: 18px;
+    margin: 0px;
+}
+
+.legende__text {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.berlin {
+    max-width: 70%;
+    margin: auto;
+    text-align: left;
+}
+
+.berlin__text,
+.nyc__text {
+    margin-top: 96px;
+    position: relative;
+}
+
+.map-icon {
+    position: absolute;
+    top: -24px;
+    left: -48px;
+}
+
+.nyc {
+    max-width: 70%;
+    margin: auto;
+    text-align: left;
+}
+
+.fazit {
+    max-width: 70%;
+    margin: auto;
+    text-align: left;
+}
+
+.footer {
+    margin-top: 148px;
+    padding: 48px 0px;
+    background-color: #001737;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.footer__left {
+    color: #fff !important;
+}
+
+.copyright {
+    margin-bottom: 0px;
+}
+
+.footer__right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer__icon:hover {
+    cursor: pointer;
+}
+
+.quellen h4 {
+    margin-top: 24px;
+}
+
+.konzept h4 {
+    margin-top: 48px;
+    margin-bottom: 24px;
+}
+
+.absatz-margin {
+    margin-top: 96px;
+}
+
+.quellen a {
+    font-size: 18px;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+@media (max-width: 991px) {
+
+    .hero__img {
+        height: 50vh;
+    }
+
+    .berlin,
+    .gender,
+    .fallzahlen,
+    .einleitung,
+    .nyc,
+    .fazit,
+    .einleitung__text,
+    .fallzahlen__text {
+        max-width: 100%;
+    }
+
+    .legende__legende {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .navbar-nav {
+        margin-top: 24px;
+    }
+
+    .nav-link {
+        margin-left: 0px;
+    }
+
+    h1 {
+        font-size: 22px;
+        line-height: normal;
+    }
+
+    .bar-graph {
+        min-height: 250px;
+    }
+}
